@@ -15,15 +15,13 @@ export interface FetchNotesParams {
   tag?: string;
 }
 
-const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+const myKey = process.env.NEXT_PUBLIC_API_URL;
 
 if (!myKey) {
-  throw new Error(
-    'NEXT_PUBLIC_NOTEHUB_TOKEN is missing in environment variables',
-  );
+  throw new Error('NEXT_PUBLIC_API_URL is missing in environment variables');
 }
 
-axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
+axios.defaults.baseURL = 'https://notehub-api.goit.study';
 
 export const fetchNotes = async ({
   page = 1,
