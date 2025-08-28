@@ -1,12 +1,19 @@
 'use client';
 
+import { registerUser, RegisterRequestData } from '@/lib/api/clientApi';
 import css from './SignUpPage.module.css';
 
 export default function SignUpPage() {
+  const handleSignUp = async (formData: FormData) => {
+    const data = Object.fromEntries(formData) as RegisterRequestData;
+    const res = await registerUser(data);
+    console.log(res);
+  };
+
   return (
     <main className={css.mainContent}>
       <h1 className={css.formTitle}>Sign up</h1>
-      <form className={css.form}>
+      <form className={css.form} action={handleSignUp}>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input

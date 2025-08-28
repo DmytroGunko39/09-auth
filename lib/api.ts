@@ -21,7 +21,7 @@ if (!myKey) {
   throw new Error('NEXT_PUBLIC_API_URL is missing in environment variables');
 }
 
-axios.defaults.baseURL = 'https://notehub-api.goit.study';
+//axios.defaults.baseURL = 'https://notehub-api.goit.study';
 
 export const fetchNotes = async ({
   page = 1,
@@ -72,15 +72,3 @@ export const fetchNoteById = async (id: string) => {
   });
   return response.data;
 };
-
-// export const fetchNoteByTag = async (tag?: string): Promise<Note[]> => {
-//   const params = tag && tag !== 'All' ? { tag } : {};
-
-//   const response = await axios.get<Note[]>(`/notes/`, {
-//     headers: {
-//       Authorization: `Bearer ${myKey}`,
-//     },
-//     params,
-//   });
-//   return response.data;
-// };

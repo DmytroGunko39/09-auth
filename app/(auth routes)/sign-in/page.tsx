@@ -2,19 +2,28 @@
 
 import { useState } from 'react';
 import css from './SignInPage.module.css';
+import { LoginRequestData, loginUser } from '@/lib/api/clientApi';
 
 export default function SignInPage() {
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // ...your authentication logic here...
-    // setError('Invalid email or password'); // Example usage
+  const handleSignIn = async (formData: FormData) => {
+    try {
+      const data = Object.fromEntries(formData) as LoginRequestData;
+      const res = await loginUser(data);
+      console.log(res);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Sign in failed');
+      }
+    }
   };
 
   return (
     <main className={css.mainContent}>
-      <form className={css.form} onSubmit={handleSubmit}>
+      <form className={css.form} action={handleSignIn}>
         <h1 className={css.formTitle}>Sign in</h1>
 
         <div className={css.formGroup}>
@@ -45,7 +54,7 @@ export default function SignInPage() {
           </button>
         </div>
 
-        {error && <p className={css.error}>{error}</p>}
+        <p className={css.error}>{error}</p>
       </form>
     </main>
   );
