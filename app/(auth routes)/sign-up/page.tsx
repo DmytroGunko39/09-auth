@@ -2,12 +2,19 @@
 
 import { registerUser, RegisterRequestData } from '@/lib/api/clientApi';
 import css from './SignUpPage.module.css';
+import { useRouter } from 'next/navigation';
+import useAuthStore from '@/lib/store/authStore';
 
 export default function SignUpPage() {
+  const router = useRouter();
+  const setAuth = useAuthStore((state) => state.setAuth);
   const handleSignUp = async (formData: FormData) => {
     const data = Object.fromEntries(formData) as RegisterRequestData;
-    const res = await registerUser(data);
-    console.log(res);
+    const user = await registerUser(data);
+    if (user) {
+      setAuth(user);
+      router.push('/notes');
+    }
   };
 
   return (

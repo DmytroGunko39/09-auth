@@ -3,15 +3,22 @@
 import { useState } from 'react';
 import css from './SignInPage.module.css';
 import { LoginRequestData, loginUser } from '@/lib/api/clientApi';
+import useAuthStore from '@/lib/store/authStore';
+import { useRouter } from 'next/navigation';
 
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const handleSignIn = async (formData: FormData) => {
     try {
       const data = Object.fromEntries(formData) as LoginRequestData;
-      const res = await loginUser(data);
-      console.log(res);
+      const user = await loginUser(data);
+      if (user) {
+        setAuth(user);
+        router.push('/notes');
+      }
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
