@@ -9,7 +9,8 @@ import { useRouter } from 'next/navigation';
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const setAuth = useAuthStore((state) => state.setUser);
+  // router.refresh();
 
   const handleSignIn = async (formData: FormData) => {
     try {

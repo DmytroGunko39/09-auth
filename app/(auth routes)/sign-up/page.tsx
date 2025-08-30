@@ -4,16 +4,29 @@ import { registerUser, RegisterRequestData } from '@/lib/api/clientApi';
 import css from './SignUpPage.module.css';
 import { useRouter } from 'next/navigation';
 import useAuthStore from '@/lib/store/authStore';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function SignUpPage() {
   const router = useRouter();
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const setAuth = useAuthStore((state) => state.setUser);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const handleSignUp = async (formData: FormData) => {
     const data = Object.fromEntries(formData) as RegisterRequestData;
-    const user = await registerUser(data);
-    if (user) {
-      setAuth(user);
-      router.push('/notes');
+
+    try {
+      setErrorMessage(null);
+      const user = await registerUser(data);
+      if (user) {
+        setAuth(user);
+        router.push('/notes');
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response?.status === 409) {
+        setErrorMessage('Такий користувач вже існує');
+      } else {
+        setErrorMessage('Невідома помилка');
+      }
     }
   };
 
@@ -48,8 +61,7 @@ export default function SignUpPage() {
             Register
           </button>
         </div>
-
-        <p className={css.error}>Error</p>
+        {errorMessage && <p className={css.error}>{errorMessage}</p>}
       </form>
     </main>
   );

@@ -1,5 +1,5 @@
 import NotesClient from './Notes.client';
-import { fetchNotes } from '@/lib/api';
+import { fetchNotesServer } from '@/lib/api/serverApi';
 import { NoteTag } from '@/types/note';
 import { Metadata } from 'next';
 
@@ -39,7 +39,7 @@ export const generateMetadata = async ({
 const NotesFilterPage = async ({ params }: Props) => {
   const { slug } = await params;
   const tag = slug?.[0] as NoteTag | 'All' | undefined;
-  const initialData = await fetchNotes({
+  const initialData = await fetchNotesServer({
     page: 1,
     perPage: 9,
     search: '',

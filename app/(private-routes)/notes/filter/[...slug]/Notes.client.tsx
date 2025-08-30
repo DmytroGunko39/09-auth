@@ -7,9 +7,10 @@ import SearchBox from '@/components/SearchBox/SearchBox';
 import Link from 'next/link';
 import { useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { fetchNotes, FetchNotesResponse } from '@/lib/api';
+import { fetchNotes } from '@/lib/api/clientApi';
 import { useDebouncedCallback } from 'use-debounce';
 import { NoteTag } from '@/types/note';
+import { FetchNotesResponse } from '@/types/types';
 
 export interface NoteClientProps {
   initialData: FetchNotesResponse;

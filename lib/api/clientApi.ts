@@ -54,6 +54,11 @@ export const loginUser = async (notesData: LoginRequestData): Promise<User> => {
   return res.data;
 };
 
+export const logOutUser = async () => {
+  const res = await api.post('/auth/logout');
+  return res.data;
+};
+
 export const registerUser = async (notesData: RegisterRequestData) => {
   const res = await api.post<User>('/auth/register', notesData);
   return res.data;
@@ -66,11 +71,6 @@ export const checkSession = async (): Promise<boolean> => {
 
 export const getMe = async (): Promise<User> => {
   const res = await api.get<User>('/users/me');
-  return res.data;
-};
-
-export const logOutUser = async () => {
-  const res = await api.post('/auth/logout');
   return res.data;
 };
 
