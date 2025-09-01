@@ -2,15 +2,15 @@
 
 import { useState } from 'react';
 import css from './SignInPage.module.css';
-import { LoginRequestData, loginUser } from '@/lib/api/clientApi';
-import useAuthStore from '@/lib/store/authStore';
+import { LoginRequestData } from '@/types/types';
+import { useAuthStore } from '@/lib/store/authStore';
 import { useRouter } from 'next/navigation';
+import { loginUser } from '@/lib/api/clientApi';
 
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setUser);
-  // router.refresh();
 
   const handleSignIn = async (formData: FormData) => {
     try {
@@ -18,7 +18,7 @@ export default function SignInPage() {
       const user = await loginUser(data);
       if (user) {
         setAuth(user);
-        router.push('/notes');
+        router.push('/profile');
       }
     } catch (err) {
       if (err instanceof Error) {

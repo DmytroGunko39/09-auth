@@ -2,17 +2,12 @@
 import { User } from '@/types/types';
 import { api } from './api';
 import type { Note, NewNoteData, DeleteNoteResponse } from '@/types/note';
-import type { FetchNotesResponse, FetchNotesParams } from '@/types/types';
-
-export type LoginRequestData = {
-  email: string;
-  password: string;
-};
-
-export type RegisterRequestData = {
-  email: string;
-  password: string;
-};
+import type {
+  RegisterRequestData,
+  FetchNotesResponse,
+  FetchNotesParams,
+  LoginRequestData,
+} from '@/types/types';
 
 export const fetchNotes = async ({
   page = 1,
@@ -74,11 +69,7 @@ export const getMe = async (): Promise<User> => {
   return res.data;
 };
 
-// export const logOut = async (): Promise<void> => {
-//   try {
-//     await api.post('/auth/logout');
-//   } catch (error) {
-//     handleApiError(error, 'logout');
-//     throw error;
-//   }
-// };
+export const updateMe = async (payload: { username?: string }) => {
+  const res = await api.patch<User>('/users/me', payload);
+  return res.data;
+};

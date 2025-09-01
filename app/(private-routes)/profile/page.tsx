@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import css from './ProfilePage.module.css';
 import type { Metadata } from 'next';
-import { User } from '@/types/types';
 import { getMeServer } from '@/lib/api/serverApi';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Profile Rage - NoteHub',
@@ -13,26 +13,39 @@ export const metadata: Metadata = {
     description: 'View and manage your NoteHub profile.',
     url: '/profile',
     type: 'profile',
+    images: [
+      {
+        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'User Profile - NoteHub',
+      },
+    ],
   },
 };
 
-type Props = {
-  user?: User;
-};
+const Profile = async () => {
+  const user = await getMeServer();
 
-const Profile = async ({ user }: Props) => {
-  await getMeServer();
   if (!user) {
-    return <p>Loading user data...</p>;
+    return (
+      <main className={css.mainContent}>
+        <div className={css.profileCard}>
+          <h1 className={css.formTitle}>Profile Page</h1>
+          <p>User data could not be loaded.</p>
+        </div>
+      </main>
+    );
   }
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
         <div className={css.header}>
           <h1 className={css.formTitle}>Profile Page</h1>
-          <a href="#" className={css.editProfileButton}>
+          <Link href="/profile/edit" className={css.editProfileButton}>
             Edit Profile
-          </a>
+          </Link>
         </div>
         <div className={css.avatarWrapper}>
           <Image
