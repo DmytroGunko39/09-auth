@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import css from './EditProfilePage.module.css';
-import { User } from '@/types/types';
+import { User } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useEffect, useState } from 'react';

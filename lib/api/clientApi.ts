@@ -1,5 +1,5 @@
 'use client';
-import { User } from '@/types/types';
+import { User } from '@/types/user';
 import { api } from './api';
 import type { Note, NewNoteData, DeleteNoteResponse } from '@/types/note';
 import type {

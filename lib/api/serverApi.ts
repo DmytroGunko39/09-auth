@@ -1,8 +1,9 @@
 import { api } from './api';
 import { cookies } from 'next/headers';
 import type { Note } from '../../types/note';
-import type { FetchNotesResponse, FetchNotesParams, User } from '@/types/types';
+import type { FetchNotesResponse, FetchNotesParams } from '@/types/types';
 import { AxiosResponse } from 'axios';
+import { User } from '@/types/user';
 
 export const fetchNotesServer = async ({
   page = 1,

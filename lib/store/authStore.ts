@@ -1,4 +1,4 @@
-import { User } from '@/types/types';
+import { User } from '@/types/user';
 import { create } from 'zustand';
 
 type AuthStore = {
