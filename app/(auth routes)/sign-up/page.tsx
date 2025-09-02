@@ -1,11 +1,12 @@
 'use client';
 
-import { registerUser, RegisterRequestData } from '@/lib/api/clientApi';
+import { registerUser } from '@/lib/api/clientApi';
 import css from './SignUpPage.module.css';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import axios from 'axios';
 import { useState } from 'react';
+import { RegisterRequestData } from '@/types/types';
 
 export default function SignUpPage() {
   const router = useRouter();
