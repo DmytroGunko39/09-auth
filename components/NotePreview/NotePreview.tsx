@@ -1,5 +1,5 @@
 import styles from '@/components/NotePreview/NotePreview.module.css';
-import { fetchNoteById } from '@/lib/api';
+import { fetchNoteByIdServer } from '@/lib/api/serverApi';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -7,7 +7,7 @@ type Props = {
 
 const NotePreview = async ({ params }: Props) => {
   const { id } = await params;
-  const note = await fetchNoteById(id);
+  const note = await fetchNoteByIdServer(id);
   if (!note) {
     return <p>Note not found</p>;
   }

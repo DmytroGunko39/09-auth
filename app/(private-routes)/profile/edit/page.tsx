@@ -8,7 +8,7 @@ import { useAuthStore } from '@/lib/store/authStore';
 import { useEffect, useState } from 'react';
 import { getMe, updateMe } from '@/lib/api/clientApi';
 
-export default function Edit() {
+export default function EditUser() {
   const router = useRouter();
   const { user, setUser } = useAuthStore();
   const [username, setUserName] = useState('');
