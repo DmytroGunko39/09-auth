@@ -12,15 +12,15 @@ type Props = {
 
 const PreviewPage = async ({ params }: Props) => {
   const { id } = await params;
-  const querClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-  await querClient.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteByIdServer(id),
   });
 
   return (
-    <HydrationBoundary state={dehydrate(querClient)}>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <NotePreview id={id} />
     </HydrationBoundary>
   );

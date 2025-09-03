@@ -20,7 +20,7 @@ export default function SignUpPage() {
       const user = await registerUser(data);
       if (user) {
         setAuth(user);
-        router.push('/notes');
+        router.push('/profile');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response?.status === 409) {
