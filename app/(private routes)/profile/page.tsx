@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 import { getMeServer } from '@/lib/api/serverApi';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Profile Rage - NoteHub',
   description: 'User profile page with account details.',
