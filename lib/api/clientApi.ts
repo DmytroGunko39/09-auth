@@ -7,6 +7,8 @@ import type {
   FetchNotesResponse,
   FetchNotesParams,
   LoginRequestData,
+  ForgotPasswordRequestData,
+  ResetPasswordRequestData,
 } from '@/types/types';
 
 export const fetchNotes = async ({
@@ -72,4 +74,14 @@ export const getMe = async (): Promise<User> => {
 export const updateMe = async (payload: { username?: string }) => {
   const res = await api.patch<User>('/users/me', payload);
   return res.data;
+};
+
+export const sendForgotPassword = async (
+  payload: ForgotPasswordRequestData,
+) => {
+  await api.post('/auth/forgot-password', payload);
+};
+
+export const resetPassword = async (payload: ResetPasswordRequestData) => {
+  await api.post('/auth/reset-password', payload);
 };

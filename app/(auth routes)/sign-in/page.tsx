@@ -1,16 +1,19 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import css from './SignInPage.module.css';
 import { LoginRequestData } from '@/types/types';
 import { useAuthStore } from '@/lib/store/authStore';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { loginUser } from '@/lib/api/clientApi';
 
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const setAuth = useAuthStore((state) => state.setUser);
+  const passwordResetSuccess = searchParams.get('reset') === 'success';
 
   const handleSignIn = async (formData: FormData) => {
     try {
@@ -60,8 +63,14 @@ export default function SignInPage() {
           <button type="submit" className={css.submitButton}>
             Log in
           </button>
+          <Link href="/forgot-password" className={css.forgotLink}>
+            Forgot password?
+          </Link>
         </div>
 
+        {passwordResetSuccess && (
+          <p className={css.success}>Password updated. Please sign in.</p>
+        )}
         <p className={css.error}>{error}</p>
       </form>
     </main>

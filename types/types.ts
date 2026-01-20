@@ -23,3 +23,13 @@ export type RegisterRequestData = {
   email: string;
   password: string;
 };
+
+export type ForgotPasswordRequestData = {
+  email: string;
+};
+
+export type ResetPasswordRequestData = {
+  token: string;
+  password: string;
+  confirmPassword: string;
+};
